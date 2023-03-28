@@ -2,22 +2,21 @@ function getComputerChoice(){
 
      switch (Math.floor(Math.random() * 3)){ //random number from 0 to 2  
         case 0:
-        return 'Rock';
+        return 'ROCK';
             break;
             case 1:
-            return 'Paper';
+            return 'PAPER';
             break;
                 case 2:
-                return 'Scissors';
+                return 'SCISSORS';
                 break;
                 }
 }
 
 function gameRound(plrSel,compSel){
 
-    compSel=getComputerChoice();
-    plrSel=plrSel.toUpperCase();
-    compSel=compSel.toUpperCase();
+    
+    
 
     if (plrSel===compSel){
         return 'Tie';
@@ -44,6 +43,16 @@ function winnerCheck(plr,comp)
         }
     }
 }
+function humanInput()
+{
+    do {
+        input=prompt('Type one of option rock or paper or scissors');
+        input=input.toUpperCase();
+    }
+    while ((input!=="ROCK")&&(input!=="SCISSORS")&&(input!=="PAPER"))
+        return input;
+    
+}
 
 
 function game(){
@@ -51,7 +60,7 @@ function game(){
     let compscore=0;
     
     for (let i=0;i<5;i++){
-        let roundscore=gameRound('Rock',);
+        let roundscore=gameRound(humanInput(),getComputerChoice());
         console.log(roundscore);
         if (roundscore.slice(0,7)==='You won') plrscore++;
         if (roundscore.slice(0,8)==='You lose') compscore++;
