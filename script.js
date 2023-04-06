@@ -1,20 +1,15 @@
+let plrscore=0;
+let compscore=0;
+
+
 function getComputerChoice(){
 
-     switch (Math.floor(Math.random() * 3)){ //random number from 0 to 2  
-        case 0:
-        return 'ROCK';
-            break;
-            case 1:
-            return 'PAPER';
-            break;
-                case 2:
-                return 'SCISSORS';
-                break;
-                }
+    let choice=['ROCK', 'PAPER', 'SCISSORS'];
+    return choice[Math.floor(Math.random()*choice.length)]
 }
 
 function gameRound(plrSel,compSel){
-
+        console.log(compSel);
     
     
 
@@ -23,11 +18,24 @@ function gameRound(plrSel,compSel){
     }
         else
         if((plrSel==="ROCK" && compSel==="SCISSORS") || (plrSel==="SCISSORS" && compSel==="PAPER") || (plrSel==="PAPER" && compSel==="ROCK"))
-            return 'You won '+plrSel+ ' beats '+compSel;
+        {
+            plrscore++;
+            document.getElementById('score').innerHTML='You won '+plrSel+ ' beats '+compSel;
+            document.getElementById('result').innerHTML='HUMAN='+plrscore+' COMPUTER='+compscore;
+            
+            
+
+        }
+            
         
         else
             if((plrSel==="ROCK" && compSel==="PAPER") || (plrSel==="SCISSORS" && compSel==="ROCK") || (plrSel==="PAPER" && compSel==="SCISSORS"))
-            return 'You lose '+compSel+ ' beats '+plrSel;
+        {
+            compscore++;
+            document.getElementById('score').innerHTML='You lose '+compSel+ ' beats '+plrSel;
+            document.getElementById('result').innerHTML='HUMAN='+plrscore+' COMPUTER='+compscore;
+        }
+            
             
     }
 function winnerCheck(plr,comp)
@@ -43,41 +51,44 @@ function winnerCheck(plr,comp)
         }
     }
 }
-function humanInput()
-{
-    do {
-        input=prompt('Type one of option rock or paper or scissors');
-        input=input.toUpperCase();
+
+function gameOver(){
+    if(plrscore>2 || compscore>2){
+        document.getElementById('result').innerHTML='End score HUMAN='+plrscore+' COMPUTER='+compscore+' The Winner is '+winnerCheck(plrscore,compscore);
+        disableButtons();
     }
-    while ((input!=="ROCK")&&(input!=="SCISSORS")&&(input!=="PAPER"))
-        return input;
-    
 }
 
+function disableButtons(){
+    buttons.forEach((button)=>{
+        button.disabled=true;
+        });
+}
 
 function game(){
-    let plrscore=0;
-    let compscore=0;
     
-    for (let i=0;i<5;i++){
-        let roundscore=gameRound(humanInput(),getComputerChoice());
-        console.log(roundscore);
-        if (roundscore.slice(0,7)==='You won') plrscore++;
-        if (roundscore.slice(0,8)==='You lose') compscore++;
-    }
-    winner=winnerCheck(plrscore,compscore);
-    plrscore=plrscore.toString();
-    compscore=compscore.toString();
-    
-    let score='Human scored '+plrscore+' and computer scored '+compscore+' .The winner is '+winner ;
-        return score;
-        
-    
+    gameRound(this.id,getComputerChoice());
+    gameOver();
+
 }
-
-console.log(game());
+function resetgame(){
+    plrscore=0;
+    compscore=0;
+    document.getElementById('result').innerHTML='';
+    document.getElementById('score').innerHTML='';
+    buttons.forEach((button)=>{
+        button.disabled=false;
+        });
+}
     
 
+  
+             
+            
 
-
-
+const buttons=document.querySelectorAll('button');
+    buttons.forEach((button)=>{
+    button.addEventListener('click', game);
+    });
+const reset=document.querySelector('#reset');
+reset.addEventListener('click',resetgame);
