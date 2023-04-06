@@ -54,7 +54,7 @@ function winnerCheck(plr,comp)
 
 function gameOver(){
     if(plrscore>2 || compscore>2){
-        document.getElementById('result').innerHTML='End score HUMAN='+plrscore+' COMPUTER='+compscore+' The Winner is '+winnerCheck(plrscore,compscore);
+        document.getElementById('result').innerHTML='END SCORE! HUMAN='+plrscore+' COMPUTER='+compscore+' The Winner is '+winnerCheck(plrscore,compscore);
         disableButtons();
     }
 }
@@ -74,8 +74,8 @@ function game(){
 function resetgame(){
     plrscore=0;
     compscore=0;
-    document.getElementById('result').innerHTML='';
-    document.getElementById('score').innerHTML='';
+    document.getElementById('result').innerHTML='Score';
+    document.getElementById('score').innerHTML='Round result';
     buttons.forEach((button)=>{
         button.disabled=false;
         });
