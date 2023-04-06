@@ -53,7 +53,7 @@ function winnerCheck(plr,comp)
 }
 
 function gameOver(){
-    if(plrscore>2 || compscore>2){
+    if(plrscore>4 || compscore>4){
         document.getElementById('result').innerHTML='END SCORE! HUMAN='+plrscore+' COMPUTER='+compscore+' The Winner is '+winnerCheck(plrscore,compscore);
         disableButtons();
     }
